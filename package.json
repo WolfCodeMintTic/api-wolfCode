@@ -1,0 +1,12 @@
+{
+  "name": "api-wolfcode",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/WolfCodeMintTic/api-wolfCode.git",
+  "author": "Franklin <franklinq8@gmail.com>",
+  "license": "MIT",
+  "type": "module",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
