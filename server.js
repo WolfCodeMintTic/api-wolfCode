@@ -2,13 +2,9 @@ var Express = require('express');
 var { MongoClient, ObjectId } = require('mongodb');
 var Cors = require('cors');
 var dotenv = require('dotenv');
+var {conectarBD, getDB} = require('./DB/db.js')
 //import express from 'express';
 
-dotenv.config({path:'./.env'});
-const stringConexion = process.env.DATABASE_URL;
-const client = new MongoClient(stringConexion, { useNewUrlParser: true, useUnifiedTopology: true, });
-
-let baseDeDatos;
 
 const app = Express();
 
@@ -17,6 +13,7 @@ app.use(Cors())
 
 app.get('/productos', (req, res) => {
     console.log('alguien hizo un get a la ruta /productos');
+    const baseDeDatos = getDB();
     baseDeDatos.collection('productos').find({}).limit(50).toArray((err, result) => {
         if (err) {
             res.status(500).send('Error consultando los productos');
@@ -35,6 +32,7 @@ app.post("/productos", (req, res) => {
             Object.keys(datosProducto).includes('descripcion') &&
             Object.keys(datosProducto).includes('valorUnitario')
         ) {
+            const baseDeDatos = getDB();
             //implementar codigo para crear venta en la BD
             baseDeDatos.collection('productos').insertOne(datosProducto, (err, result) => {
                 if (err) {
@@ -61,6 +59,7 @@ app.patch("/productos/editar", (req, res) => {
     const operacion = {
         $set: edicion,
     };
+    const baseDeDatos = getDB();
     baseDeDatos
         .collection('productos')
         .findOneAndUpdate(
@@ -82,6 +81,7 @@ app.patch("/productos/editar", (req, res) => {
 app.delete("/productos/eliminar", (req, res) => {
     console.log('alguien hizo un delete a la ruta /productos/eliminar');
     const filtroProducto = { _id: new ObjectId(req.body.id) };
+    const baseDeDatos = getDB();
     baseDeDatos.collection('productos').deleteOne(filtroProducto, (err, result) => {
         if (err) {
             console.error(err);
@@ -92,18 +92,9 @@ app.delete("/productos/eliminar", (req, res) => {
     })
 })
 const main = () => {
-    client.connect((err, db) => {
-        if (err) {
-            console.error("Error al conectar a la bd");
-            return 'error';
-        } else {
-            baseDeDatos = db.db('wolfcode');
-            console.log('baseDeDatos exitosa');
-            return app.listen(process.env.PORT, () => {
-                console.log(`escuchando puerto ${process.env.PORT}`);
-            });
-        }
+    return app.listen(process.env.PORT, () => {
+        console.log(`escuchando puerto ${process.env.PORT}`);
     });
 };
 
-main();
+conectarBD(main);
