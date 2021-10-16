@@ -39,4 +39,10 @@ const patchProduct = async (editProduct, callback) => {
             { upsert: true, returnOriginal: true }, callback);
 };
 
-module.exports = { queryAllProduct, postProduct, patchProduct};
+const deleteProduct = async (id, callback) => {
+    const filtroProducto = { _id: new ObjectId(id)};
+    const baseDeDatos = getDB();
+    await baseDeDatos.collection('productos').deleteOne(filtroProducto, callback);
+}
+
+module.exports = {queryAllProduct, postProduct, patchProduct, deleteProduct};

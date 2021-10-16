@@ -1,6 +1,6 @@
 var Express = require('express')
 var { getDB } = require('../../DB/db.js');
-var {queryAllProduct, postProduct, patchProduct} = require('../../controllers/productos/controller.js');
+var {queryAllProduct, postProduct, patchProduct, deleteProduct} = require('../../controllers/productos/controller.js');
 
 const rutasProductos = Express.Router();
 const genericCallback =(res) => (err, result) => {
@@ -27,15 +27,6 @@ rutasProductos.route("/productos/editar").patch((req, res) => {
 
 rutasProductos.route("/productos/eliminar").delete((req, res) => {
     console.log('alguien hizo un delete a la ruta /productos/eliminar');
-    const filtroProducto = { _id: new ObjectId(req.body.id) };
-    const baseDeDatos = getDB();
-    baseDeDatos.collection('productos').deleteOne(filtroProducto, (err, result) => {
-        if (err) {
-            console.error(err);
-            res.sendStatus(500)
-        } else {
-            res.sendStatus(200)
-        }
-    })
+    deleteProduct(req.body.id, genericCallback(res));
 })
 module.exports = rutasProductos;
