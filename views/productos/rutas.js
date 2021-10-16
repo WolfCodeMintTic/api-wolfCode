@@ -1,6 +1,6 @@
 var Express = require('express')
 var { getDB } = require('../../DB/db.js');
-var {queryAllProduct, postProduct} = require('../../controllers/productos/controller.js');
+var {queryAllProduct, postProduct, patchProduct} = require('../../controllers/productos/controller.js');
 
 const rutasProductos = Express.Router();
 const genericCallback =(res) => (err, result) => {
@@ -22,29 +22,7 @@ rutasProductos.route("/productos/registrar").post((req, res) => {
 });
 
 rutasProductos.route("/productos/editar").patch((req, res) => {
-    const edicion = req.body;
-    const filtroProducto = { _id: new ObjectId(edicion.id) };
-    delete edicion.id;
-    const operacion = {
-        $set: edicion,
-    };
-    const baseDeDatos = getDB();
-    baseDeDatos
-        .collection('productos')
-        .findOneAndUpdate(
-            filtroProducto,
-            operacion,
-            { upsert: true, returnOriginal: true },
-            (err, result) => {
-                if (err) {
-                    console.error("error al actualizar producto", err);
-                    res.sendStatus(500);
-                } else {
-                    console.log("prodcto actualizado");
-                    res.sendStatus(200);
-                }
-            }
-        );
+    patchProduct(req.body, genericCallback(res));
 });
 
 rutasProductos.route("/productos/eliminar").delete((req, res) => {

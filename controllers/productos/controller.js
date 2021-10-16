@@ -1,4 +1,5 @@
 var { getDB } = require('../../DB/db.js');
+var {ObjectId} = require('mongodb')
 const queryAllProduct = async (callback) => {
     const baseDeDatos = getDB();
     await baseDeDatos
@@ -16,11 +17,26 @@ const postProduct = async (datosProducto,callback) => {
         ) {
             const baseDeDatos = getDB();
             //implementar codigo para crear venta en la BD
-            baseDeDatos.collection('productos').insertOne(datosProducto, callback);
+            await baseDeDatos.collection('productos').insertOne(datosProducto, callback);
             return "bien";
         } else {
           return "error";
         }
-}
+};
 
-module.exports = { queryAllProduct, postProduct };
+const patchProduct = async (editProduct, callback) => {
+    const filtroProducto = { _id: new ObjectId(editProduct.id) };
+    delete editProduct.id;
+    const operacion = {
+        $set: editProduct,
+    };
+    const baseDeDatos = getDB();
+    await baseDeDatos
+        .collection('productos')
+        .findOneAndUpdate(
+            filtroProducto,
+            operacion,
+            { upsert: true, returnOriginal: true }, callback);
+};
+
+module.exports = { queryAllProduct, postProduct, patchProduct};
