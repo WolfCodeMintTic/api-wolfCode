@@ -17,16 +17,16 @@ rutasProductos.route('/productos').get((req, res) => {
     
 });
 
-rutasProductos.route("/productos/registrar").post((req, res) => {
+rutasProductos.route("/productos").post((req, res) => {
     postProduct(req.body, genericCallback(res));
 });
 
-rutasProductos.route("/productos/editar").patch((req, res) => {
-    patchProduct(req.body, genericCallback(res));
+rutasProductos.route("/productos/:id").patch((req, res) => {
+    patchProduct(req.params.id,req.body,genericCallback(res));
 });
 
-rutasProductos.route("/productos/eliminar").delete((req, res) => {
+rutasProductos.route("/productos/:id").delete((req, res) => {
     console.log('alguien hizo un delete a la ruta /productos/eliminar');
-    deleteProduct(req.body.id, genericCallback(res));
+    deleteProduct(req.params.id, genericCallback(res));
 })
 module.exports = rutasProductos;

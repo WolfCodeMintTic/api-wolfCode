@@ -24,9 +24,8 @@ const postProduct = async (datosProducto,callback) => {
         }
 };
 
-const patchProduct = async (editProduct, callback) => {
-    const filtroProducto = { _id: new ObjectId(editProduct.id) };
-    delete editProduct.id;
+const patchProduct = async (id,editProduct, callback) => {
+    const filtroProducto = { _id: new ObjectId(id) };
     const operacion = {
         $set: editProduct,
     };
