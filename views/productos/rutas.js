@@ -1,6 +1,6 @@
 var Express = require('express')
 var { getDB } = require('../../DB/db.js');
-var {queryAllProduct, postProduct, patchProduct, deleteProduct} = require('../../controllers/productos/controller.js');
+var { queryAllProduct, postProduct, patchProduct, deleteProduct, searchProduct} = require('../../controllers/productos/controller.js');
 
 const rutasProductos = Express.Router();
 const genericCallback =(res) => (err, result) => {
@@ -19,6 +19,12 @@ rutasProductos.route('/productos').get((req, res) => {
 
 rutasProductos.route("/productos").post((req, res) => {
     postProduct(req.body, genericCallback(res));
+});
+
+//route de busqueda
+rutasProductos.route('/productos/:id').get((req, res) => {
+    console.log('alguien hizo un get a la ruta /productos');
+    searchProduct(req.params.id, genericCallback(res));
 });
 
 rutasProductos.route("/productos/:id").patch((req, res) => {

@@ -1,5 +1,7 @@
 var { getDB } = require('../../DB/db.js');
 var {ObjectId} = require('mongodb')
+
+
 const queryAllProduct = async (callback) => {
     const baseDeDatos = getDB();
     await baseDeDatos
@@ -24,6 +26,13 @@ const postProduct = async (datosProducto,callback) => {
         }
 };
 
+const searchProduct = async (id, callback) => {
+    const baseDeDatos = getDB();
+    await baseDeDatos
+        .collection('productos')
+        .find({_id: new ObjectId(id)}, callback);
+}
+
 const patchProduct = async (id,editProduct, callback) => {
     const filtroProducto = { _id: new ObjectId(id) };
     const operacion = {
@@ -44,4 +53,4 @@ const deleteProduct = async (id, callback) => {
     await baseDeDatos.collection('productos').deleteOne(filtroProducto, callback);
 }
 
-module.exports = {queryAllProduct, postProduct, patchProduct, deleteProduct};
+module.exports = { queryAllProduct, postProduct, patchProduct, deleteProduct, searchProduct};
