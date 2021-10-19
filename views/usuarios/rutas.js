@@ -10,7 +10,7 @@ const genericCallback = (res) => (err, result) => {
     }
 };
 
-rutasUsuarios.route('/usuarios').get((req, res) => {
+rutasUsuarios.route('/usuarios/').get((req, res) => {
     console.log('alguien hizo un get a la ruta /usuarios');
     queryAllUser(genericCallback(res));
 
@@ -21,10 +21,10 @@ rutasUsuarios.route("/usuarios").post((req, res) => {
 });
 
 //route de busqueda
-rutasUsuarios.route('/usuarios/:id').get((req, res) => {
-    console.log('alguien hizo un get a la ruta /usuarios');
-    searchUser(req.params.id, genericCallback(res));
-});
+// rutasUsuarios.route('/usuarios/:id').get((req, res) => {
+//     console.log('alguien hizo un get a la ruta /usuarios');
+//     searchUser(req.params.id, genericCallback(res));
+// });
 
 rutasUsuarios.route("/usuarios/:id").patch((req, res) => {
     patchUser(req.params.id, req.body, genericCallback(res));
