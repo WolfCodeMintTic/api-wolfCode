@@ -22,13 +22,14 @@ const autorizacionEstadoUsuario = async(req, res, next) => {
                 res.sendStatus(401);
             }else {
                 console.log('habilitado');
-                
+                next();
             }
+        }else{
+            next();
         }
     });
     console.log('hola mundo, soy un middleware')
     // si el usuario esta en pendiente o autorizado ejecutar next
-    next();
 }
 
 module.exports = autorizacionEstadoUsuario;
