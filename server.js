@@ -1,4 +1,4 @@
-var Express = require('express');
+var express = require('express');
 var Cors = require('cors');
 var dotenv = require('dotenv');
 var {conectarBD, getDB} = require('./DB/db.js');
@@ -12,9 +12,9 @@ var autorizacionEstadoUsuario = require('./middleware/autorizacionEstadoUsuario'
 
 const port = process.env.PORT || 5000;
 
-const app = Express();
+const app = express();
 
-app.use(Express.json());
+app.use(express.json());
 app.use(Cors());
 
 var jwtCheck = jwt({
