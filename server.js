@@ -36,7 +36,7 @@ app.use(rutasProductos);
 app.use(rutasUsuarios);
 app.use(rutasVentas)
 const main = () => {
-    return app.listen(process.env.PORT, () => {
+    return app.listen(port, () => {
         console.log(`escuchando puerto ${port}`);
     });
 };
