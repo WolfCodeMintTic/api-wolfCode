@@ -10,6 +10,7 @@ var jwks = require('jwks-rsa');
 var autorizacionEstadoUsuario = require('./middleware/autorizacionEstadoUsuario')
 //import express from 'express';
 
+const port = process.env.PORT || 5000;
 
 const app = Express();
 
@@ -36,7 +37,7 @@ app.use(rutasUsuarios);
 app.use(rutasVentas)
 const main = () => {
     return app.listen(process.env.PORT, () => {
-        console.log(`escuchando puerto ${process.env.PORT}`);
+        console.log(`escuchando puerto ${port}`);
     });
 };
 
