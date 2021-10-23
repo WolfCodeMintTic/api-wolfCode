@@ -7,7 +7,14 @@ var rutasUsuarios = require('./views/usuarios/rutas.js');
 var rutasVentas = require('./views/ventas/rutas.js');
 var jwt = require('express-jwt');
 var jwks = require('jwks-rsa');
+var autorizacionEstadoUsuario = require('./middleware/autorizacionEstadoUsuario')
 //import express from 'express';
+
+
+const app = Express();
+
+app.use(Express.json());
+app.use(Cors());
 
 var jwtCheck = jwt({
     secret: jwks.expressJwtSecret({
@@ -20,12 +27,10 @@ var jwtCheck = jwt({
     issuer: 'https://wolfcode-mintic.us.auth0.com/',
     algorithms: ['RS256']
 });
-
-const app = Express();
-
 app.use(jwtCheck);
-app.use(Express.json());
-app.use(Cors());
+
+app.use(autorizacionEstadoUsuario);
+
 app.use(rutasProductos);
 app.use(rutasUsuarios);
 app.use(rutasVentas)
