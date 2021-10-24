@@ -1,5 +1,5 @@
 var Express = require('express');
-var Cors = require('cors');
+var cors = require('cors');
 var dotenv = require('dotenv');
 var {conectarBD, getDB} = require('./DB/db.js');
 var rutasProductos = require('./views/productos/rutas.js');
@@ -16,7 +16,7 @@ const port = process.env.PORT || 5000;
 const app = Express();
 
 app.use(Express.json());
-app.use(Cors());
+app.use(cors());
 
 var jwtCheck = jwt({
     secret: jwks.expressJwtSecret({
