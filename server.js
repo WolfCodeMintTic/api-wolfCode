@@ -9,6 +9,7 @@ var jwt = require('express-jwt');
 var jwks = require('jwks-rsa');
 var autorizacionEstadoUsuario = require('./middleware/autorizacionEstadoUsuario')
 //import express from 'express';
+dotenv.config({path: './.env'});
 
 const port = process.env.PORT || 5000;
 
