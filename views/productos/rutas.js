@@ -1,7 +1,8 @@
-var express = require('express')
+var Express = require('express')
 var { queryAllProduct, postProduct, patchProduct, deleteProduct, searchProduct} = require('../../controllers/productos/controller.js');
 
-const rutasProductos = express.Router();
+const rutasProductos = Express.Router();
+
 const genericCallback =(res) => (err, result) => {
         if (err) {
             res.status(500).send('Error consultando los productos');

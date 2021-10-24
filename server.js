@@ -1,4 +1,4 @@
-var express = require('express');
+var Express = require('express');
 var Cors = require('cors');
 var dotenv = require('dotenv');
 var {conectarBD, getDB} = require('./DB/db.js');
@@ -13,7 +13,7 @@ dotenv.config({path: './.env'});
 
 const port = process.env.PORT || 5000;
 
-const app = express();
+const app = Express();
 
 app.use(express.json());
 app.use(Cors());
