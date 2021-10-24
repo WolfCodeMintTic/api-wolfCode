@@ -25,11 +25,11 @@ rutasUsuarios.route("/usuarios").post((req, res) => {
 //     console.log('alguien hizo un get a la ruta /usuarios');
 //     searchUser(req.params.id, genericCallback(res));
 // });
-// rutasUsuarios.route('/usuarios/self/').get((req, res) => {
-//     console.log('alguien hizo un get a la ruta /usuarios/self');
-//     consultarOCrearUsuario(req, genericCallback(res));
-//     // searchUser(, genericCallback(res));
-// });
+rutasUsuarios.route('/usuarios/self/').get((req, res) => {
+    console.log('alguien hizo un get a la ruta /usuarios/self');
+    consultarOCrearUsuario(req, genericCallback(res));
+    // searchUser(, genericCallback(res));
+});
 
 rutasUsuarios.route("/usuarios/:id/").patch((req, res) => {
     patchUser(req.params.id, req.body, genericCallback(res));
