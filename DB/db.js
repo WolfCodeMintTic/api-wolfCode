@@ -14,11 +14,10 @@ const conectarBD = (callback)=>{
         if (err) {
             console.error("Error al conectar a la bd");
             return 'error';
-        } else {
+        } 
             baseDeDatos = db.db('wolfcode');
             console.log('baseDeDatos exitosa');
             return callback();
-        }
     });
 }
 
