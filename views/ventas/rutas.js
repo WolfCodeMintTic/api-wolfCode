@@ -1,7 +1,7 @@
-var Express = require('express')
+var express = require('express')
 var { queryAllVentas, postVentas, patchVentas, deleteVentas, searchProduct } = require('../../controllers/ventas/controller.js');
 
-const rutasVentas = Express.Router();
+const rutasVentas = express.Router();
 const genericCallback = (res) => (err, result) => {
     if (err) {
         res.status(500).send('Error consultando los ventas');

@@ -1,7 +1,7 @@
-var Express = require('express')
+var express = require('express')
 var { queryAllUser, postUser, patchUser, deleteUser, searchProduct, consultarOCrearUsuario } = require('../../controllers/usuarios/controller.js');
 
-const rutasUsuarios = Express.Router();
+const rutasUsuarios = express.Router();
 const genericCallback = (res) => (err, result) => {
     if (err) {
         res.status(500).send('Error consultando los usuarios');
